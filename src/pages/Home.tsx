@@ -7,11 +7,17 @@ import googleIconImg from '../assets/images/google-icon.svg'
 import { Button } from '../componets/Button'
 
 import '../styles/auth.scss'
+import { useAuth } from '../hooks/useAuth'
 
 export function Home() {
   const navegue = useNavigate()
+  const { user, signInWithGoogle } = useAuth()
 
-  function navigationToNewRoom() {
+  async function handleCreateRoom() {
+    if (!user) {
+      await signInWithGoogle()
+    }
+
     navegue('/rooms/new')
   }
 
@@ -29,7 +35,7 @@ export function Home() {
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
-          <button onClick={navigationToNewRoom} className="create-room">
+          <button onClick={handleCreateRoom} className="create-room">
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
           </button>
