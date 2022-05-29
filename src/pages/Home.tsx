@@ -37,6 +37,12 @@ export function Home() {
       alert('Room does not exists')
       return
     }
+
+    if (roomRef.val().endedAt) {
+      alert('Sala encerrada')
+      return
+    }
+
     navegue(`/rooms/${roomCode}`)
   }
 
